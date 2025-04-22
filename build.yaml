@@ -19,7 +19,6 @@
 #
 board: [ "nice_nano_v2" ]
 shield: [ "anglerfish_left", "anglerfish_right" ]
----
 include:
   - board: nice_nano_v2
     shield: anglerfish_left
@@ -27,4 +26,3 @@ include:
     cmake-args: -DCONFIG_ZMK_STUDIO=y
   - board: nice_nano_v2
     shield: anglerfish_right
----
