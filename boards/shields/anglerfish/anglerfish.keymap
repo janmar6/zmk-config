@@ -1,0 +1,193 @@
+#include <behaviors.dtsi>
+#include <dt-bindings/zmk/keys.h>
+#include <dt-bindings/zmk/bt.h>
+#include <dt-bindings/zmk/outputs.h>
+#include "keys_et.h"
+
+#define DFLT    0
+#define MEDIA   1
+#define EST     2
+#define QWERTY  3
+#define NUM     4
+#define SYM     5
+#define XTRA    6
+
+// TODO
+// [x] add missing characters
+// [x] fix third layer combo
+// [x] add Estonian layer support
+// [x] add qwerty support
+
+/ {
+
+conditional_layers {
+    compatible = "zmk,conditional-layers";
+    tri_layer {
+        if-layers = <NUM SYM>;
+        then-layer = <XTRA>;
+    };
+};
+
+combos {
+    compatible = "zmk,combos";
+    timeout-ms = <50>;
+
+    combo_kill_window {
+        key-positions = <13 14>;
+        bindings = <&kp LALT F4>;
+    };
+
+    combo_num_layer {
+        key-positions = <31 32>;
+        bindings = <&mo NUM>;
+    };
+
+    combo_symbol_layer {
+        key-positions = <33 34>;
+        bindings = <&mo SYM>;
+    };
+
+    combo_ESC {
+        key-positions = <1 2>;
+        bindings = <&kp ESC>;
+    };
+
+    combo_MEDIA {
+        key-positions = <20 21 22 23>;
+        bindings = <&tog MEDIA>;
+    };
+
+    combo_ENTER {
+        key-positions = <3 4>;
+        bindings = <&kp ENTER>;
+    };
+
+    combo_bootloader_left {
+        key-positions = <0 4 20 24>;
+        bindings = <&bootloader>;
+    };
+
+    combo_bootloader_right {
+        key-positions = <5 9 25 29>;
+        bindings = <&bootloader>;
+    };
+};
+
+
+//   0  1  2  3  4          5  6  7  8  9
+//  10 11 12 13 14          15 16 17 18 19
+//  20 21 22 23 24          25 26 27 28 29
+//           30 31 32    33 34 35
+
+
+
+
+behaviors {
+    lhm: left_homerow_mods {
+        compatible = "zmk,behavior-hold-tap";
+        #binding-cells = <2>;
+        tapping-term-ms = <150>;
+        quick-tap-ms = <0>;
+        flavor = "tap-preferred";
+        bindings = <&kp>, <&kp>;
+        hold-trigger-key-positions = <5 6 7 8 9 15 16 17 18 19 25 26 27 28 29 35 30 32 34 36>;
+        // <---[[right-hand keys + thumb keys]]
+    };
+    rhm: right_homerow_mods {
+        compatible = "zmk,behavior-hold-tap";
+        #binding-cells = <2>;
+        tapping-term-ms = <150>;
+        quick-tap-ms = <0>;
+        flavor = "tap-preferred";
+        bindings = <&kp>, <&kp>;
+        hold-trigger-key-positions = <0 1 2 3 4 10 11 12 13 14 21 22 23 24 25 31 30 32 34 36>;
+        // <---[[left-hand keys + thumb keys]]
+    };
+    skq: sticky_key_quick_release {
+        compatible = "zmk,behavior-sticky-key";
+        #binding-cells = <1>;
+        bindings = <&kp>;
+        release-after-ms = <1000>;
+        quick-release;
+        ignore-modifiers;
+      };
+    mo_tog: behavior_mo_tog {
+        compatible = "zmk,behavior-hold-tap";
+        #binding-cells = <2>;
+        flavor = "hold-preferred";
+        tapping-term-ms = <200>;
+        bindings = <&kp>, <&tog>;
+    };
+};
+
+keymap {
+    compatible = "zmk,keymap";
+
+    default_layer {
+        bindings = <
+&kp Q       &kp W       &kp F       &kp P       &kp B          &kp J     &kp L       &kp U           &kp Y          &kp BSPC
+&kp A       &kp R       &kp S       &kp T       &kp G          &kp M     &kp N       &kp E           &kp I          &kp O
+&lhm LALT Z &lhm LSFT X &lhm LGUI C &lhm LCTL D &kp V          &kp K     &rhm RCTL H &rhm RGUI COMMA &rhm RSFT DOT &rhm RALT ET_FSLH
+                    &none &lt SYM SPACE &mo_tog LGUI EST       &skq LSHIFT &lt NUM E     &none
+        >;
+    };
+
+    media_layer {
+        bindings = <
+&kp C_BRI_UP &none        &none        &none      &tog MEDIA     &none &none &none &none &none
+&kp C_BRI_DN &kp C_PREV   &kp C_PP     &kp C_NEXT &kp C_VOL_UP   &none &none &none &none &none
+&none        &kp LEFT     &kp SPACE    &kp RIGHT  &kp C_VOL_DN   &none &none &none &none &none
+                          &none        &kp SPACE  &none          &none &none &none
+
+        >;
+    };
+
+    estonian_layer {
+        bindings = <
+&trans               &kp ET_A_UMLAUT       &trans &trans &trans      &trans &trans &trans &kp ET_U_UMLAUT &trans
+&trans               &trans                &trans &trans &trans      &trans &trans &trans &trans          &trans
+&lhm LALT ET_O_TILDE &lhm LSFT ET_O_UMLAUT &trans &trans &trans      &trans &trans &trans &trans          &trans
+                                           &trans &trans &trans      &trans &trans &trans
+        >;
+    };
+
+
+    qwerty_layer {
+        bindings = <
+&kp Q     &kp W    &kp E     &kp R     &kp T                   &kp Y     &kp U     &kp I     &kp O     &kp O
+&kp A     &kp S    &kp D     &kp F     &kp G                   &kp H     &kp J     &kp K      &kp L     &kp BSPC   
+&lhm LALT Z &lhm LSFT X &lhm LGUI C &lhm LCTL V &kp B          &kp N     &rhm RCTL M &rhm RGUI COMMA &rhm RSFT DOT &rhm RSFT ET_FSLH
+                   &tog QWERTY &lt SYM SPACE &kp ET_A_UMLAUT   &kp ET_O_UMLAUT   &lt NUM E     &lt NUM E
+        >;
+    };
+
+    num_layer {
+        bindings = <
+&kp CAPS   &kp N9   &kp N8   &kp N7    &kp DEL                      &caps_word &none       &kp TAB     &kp DEL     &trans
+&caps_word &kp N3   &kp N2   &kp N1    &kp N0                       &kp ET_GT     &kp LEFT    &kp DOWN    &kp UP      &kp RIGHT
+&none      &kp N6   &kp N5   &kp N4    &kp ET_EURO                  &kp ET_LT     &kp  HOME    &kp  PG_DN   &kp PG_UP   &kp END
+                  &trans     &trans      &trans                &trans    &trans    &trans
+        >;
+    };
+
+// these symbols aren't supported yet: §±
+
+    symbols {
+        bindings = <
+&kp ET_EXCL &kp ET_AT &kp ET_LBRC &kp ET_RBRC &kp ET_TILDE           &kp ET_CARET   &kp ET_STAR  &kp ET_PLUS   &kp ET_MINUS    &trans    
+&kp Q  &kp W   &kp ET_EQUAL &kp ET_COLON  &kp ET_SEMI                &kp ET_DQT     &kp ET_SQT   &kp ET_LPAR   &kp ET_RPAR     &kp ET_GRAVE
+&kp ET_DLLR &kp ET_PERCENT &kp ET_AMPS    &kp ET_HASH &kp ET_PIPE         &kp ET_BSLH &kp ET_UNDER &kp ET_LBKT &kp ET_RBKT     &kp ET_QMARK
+                  &trans     &trans          &trans                  &trans    &trans    &trans
+        >;
+    };
+
+    thirdlayer {
+        bindings = <
+&kp F1   &kp F2   &kp F3   &kp F4    &bt BT_CLR                    &bt BT_SEL 0 &bt BT_SEL 4 &kp C_BRI_DN &kp C_BRI_UP     &out OUT_TOG
+&kp F5   &kp F6   &kp F7   &kp F8    &trans                        &bt BT_SEL 1 &kp C_MUTE   &kp C_VOL_DN &kp C_VOL_UP     &none
+&kp F9   &kp F10  &kp F11  &kp F12   &bootloader                   &bt BT_SEL 2 &kp C_PREV   &kp C_PP     &kp C_NEXT       &none
+                                &trans &trans &trans         &trans    &trans    &trans
+        >;
+    };
+};
+};
