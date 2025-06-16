@@ -10,7 +10,7 @@
 / {
     chosen {
         zmk,physical-layout = &default_layout;
-        zmk,kscan = &kscan_direct;
+        zmk,kscan = &kscan;
         zmk,matrix_transform = &default_transform;
     };
 
@@ -27,7 +27,7 @@
            >;
     };
 
-    kscan_direct: kscan {
+    kscan: kscan {
         compatible = "zmk,kscan-gpio-direct";
         label = "KSCAN";
         input-gpios

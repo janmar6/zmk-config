@@ -6,9 +6,9 @@
 / {
     default_layout: default_layout {
         compatible = "zmk,physical-layout";
-        display-name = "Default Layout";
+        display-name = "Anglerfish Layout";
         transform = <&default_transform>;
-        kscan = <&kscan_direct>;
+        kscan = <&kscan>;
 
         // Edit this to define the positions and sizes of the keys, or remove it
         // if your keyboard will not support ZMK Studio.
