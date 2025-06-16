@@ -3,7 +3,6 @@
 #include <dt-bindings/zmk/bt.h>
 #include <dt-bindings/zmk/outputs.h>
 #include "keys_et.h"
-#include "anglerfish-layouts.dtsi"
 
 #define DFLT    0
 #define MEDIA   1
@@ -120,8 +119,6 @@ behaviors {
         bindings = <&kp>, <&tog>;
     };
 };
-
-chosen { /delete-property/ zmk,matrix-transform; }; 
 
 keymap {
     compatible = "zmk,keymap";
