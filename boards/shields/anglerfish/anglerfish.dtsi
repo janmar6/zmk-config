@@ -5,7 +5,7 @@
 
 #include <dt-bindings/zmk/matrix_transform.h>
 
-// #include "anglerfish-layouts.dtsi"
+#include "anglerfish-layouts.dtsi"
 
 / {
     chosen {
@@ -27,7 +27,7 @@
            >;
     };
 
-    kscan: kscan {
+   kscan: kscan_direct {
         compatible = "zmk,kscan-gpio-direct";
         label = "KSCAN";
         input-gpios
