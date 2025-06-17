@@ -127,7 +127,7 @@ keymap {
         bindings = <
 &kp Q       &kp W       &kp F       &kp P       &kp B          &kp J     &kp L       &kp U           &kp Y          &kp BSPC
 &kp A       &kp R       &kp S       &kp T       &kp G          &kp M     &kp N       &kp E           &kp I          &kp O
-&lhm LALT Z &lhm LSFT X &lhm LGUI C &lhm LCTL D &kp V          &kp K     &rhm RCTL H &rhm RGUI COMMA &rhm RSFT DOT &rhm RALT ET_FSLH
+&lhm LALT Z &lhm LSFT X &lhm LGUI C &lhm LCTL D &kp V          &kp K     &rhm RCTL H &rhm RGUI COMMA &rhm RSFT DOT &rhm LALT ET_FSLH
                     &none &lt SYM SPACE &mo_tog LGUI EST       &skq LSHIFT &lt NUM E     &none
         >;
     };
@@ -185,7 +185,7 @@ keymap {
         bindings = <
 &kp F1   &kp F2   &kp F3   &kp F4    &bt BT_CLR                    &bt BT_SEL 0 &bt BT_SEL 4 &kp C_BRI_DN &kp C_BRI_UP     &out OUT_TOG
 &kp F5   &kp F6   &kp F7   &kp F8    &trans                        &bt BT_SEL 1 &kp C_MUTE   &kp C_VOL_DN &kp C_VOL_UP     &none
-&kp F9   &kp F10  &kp F11  &kp F12   &bootloader                   &bt BT_SEL 2 &kp C_PREV   &kp C_PP     &kp C_NEXT       &none
+&kp F9   &kp F10  &kp F11  &kp F12   &none                         &bt BT_SEL 2 &kp C_PREV   &kp C_PP     &kp C_NEXT       &studio_unlock
                                 &trans &trans &trans         &trans    &trans    &trans
         >;
     };
